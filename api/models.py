@@ -64,11 +64,26 @@ class Message(models.Model):
 
 class AdminUser(models.Model):
     email = models.EmailField(max_length=150, unique=True)
-    password_hash = models.CharField(max_length=255)  # bcrypt
+    password_hash = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     otp_code = models.CharField(max_length=6, null=True, blank=True)
     otp_expires_at = models.DateTimeField(null=True, blank=True)
     last_login = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # Requis par DRF pour l'authentification
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    is_active = True
 
     class Meta:
         db_table = "admin_users"
