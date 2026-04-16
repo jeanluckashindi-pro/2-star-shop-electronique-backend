@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /backend/
+          server-dir: /public_html/2starshop/backend/
           exclude: |
             **/.git*
             **/.git*/**
